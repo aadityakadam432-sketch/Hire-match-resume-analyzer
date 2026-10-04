@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hire Match AI</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Mammoth.js for DOCX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">HIRE</div>
+
+            <div>
+                <h2>Hire Match</h2>
+                <span>AI Recruitment</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item">
+                <span>👥</span>
+                Candidates
+            </button>
+
+            <button class="nav-item">
+                <span>📊</span>
+                Analytics
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-status">
+                <span class="status-dot"></span>
+                AI Ready
+            </div>
+
+            <p>Resume & Job Matching System</p>
+            <small>PS ID: ALG-AI-01</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <h1>Hiring Intelligence</h1>
+                <p>Analyze resumes against your job requirements.</p>
+            </div>
+
+            <div class="header-badge">
+                <span>●</span> System Online
+            </div>
+
+        </header>
+
+
+        <!-- JOB + RESUME SECTION -->
+        <section class="input-grid">
+
+            <!-- JOB DESCRIPTION -->
+            <div class="card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Job Description</h2>
+                        <p>Enter the requirements for this position.</p>
+                    </div>
+
+                    <span class="step">01</span>
+                </div>
+
+                <textarea
+                    id="jobDescription"
+                    placeholder="Example:
+
+We are looking for a Full Stack Developer with 2+ years of experience.
+
+Required skills:
+Python, React, JavaScript, SQL, Git, AWS
+
+Education:
+B.Tech in Computer Science or related field.
+
+The candidate should have experience building web applications."
+                ></textarea>
+
+                <div class="jd-info">
+                    <span>💡 Tip</span>
+                    Mention skills, years of experience and education for better matching.
+                </div>
+
+            </div>
+
+
+            <!-- RESUME UPLOAD -->
+            <div class="card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Upload Resumes</h2>
+                        <p>Upload multiple candidate resumes.</p>
+                    </div>
+
+                    <span class="step">02</span>
+                </div>
+
+                <label class="upload-box" for="resumeFiles">
+
+                    <div class="upload-icon">↑</div>
+
+                    <h3>Upload Resumes</h3>
+
+                    <p>
+                        Drag & drop or click to browse
+                    </p>
+
+                    <span>
+                        PDF, DOCX or TXT • Multiple files supported
+                    </span>
+
+                    <input
+                        type="file"
+                        id="resumeFiles"
+                        multiple
+                        accept=".pdf,.docx,.txt"
+                    >
+
+                </label>
+
+                <div id="fileList" class="file-list"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYZE BUTTON -->
+        <div class="analyze-container">
+
+            <button id="analyzeBtn" class="analyze-btn">
+                <span>✦</span>
+                Analyze Candidates
+            </button>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <span>Analyzing resumes...</span>
+            </div>
+
+        </div>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="dashboard hidden">
+
+            <!-- STAT CARDS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+
+                    <div>
+                        <span>Total Candidates</span>
+                        <strong id="totalCandidates">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+
+                    <div>
+                        <span>Strong Matches</span>
+                        <strong id="strongMatches">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">%</div>
+
+                    <div>
+                        <span>Average Match</span>
+                        <strong id="averageScore">0%</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">★</div>
+
+                    <div>
+                        <span>Top Score</span>
+                        <strong id="topScore">0%</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- RESULTS -->
+            <div class="card results-card">
+
+                <div class="results-header">
+
+                    <div>
+                        <h2>Candidate Ranking</h2>
+                        <p>Ranked according to job requirements.</p>
+                    </div>
+
+                    <div class="result-count">
+                        <span id="resultCount">0</span> candidates
+                    </div>
+
+                </div>
+
+
+                <!-- SEARCH FILTER -->
+                <div class="filters">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchCandidate"
+                            placeholder="Search candidate..."
+                        >
+
+                    </div>
+
+
+                    <select id="scoreFilter">
+
+                        <option value="all">All Scores</option>
+                        <option value="80">80%+</option>
+                        <option value="70">70%+</option>
+                        <option value="60">60%+</option>
+                        <option value="50">50%+</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CANDIDATES -->
+                <div id="candidateList" class="candidate-list"></div>
+
+                <div id="noResults" class="no-results hidden">
+                    No candidates found.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- CANDIDATE MODAL -->
+<div id="candidateModal" class="modal hidden">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+
+        <button id="closeModal" class="close-modal">×</button>
+
+        <div id="modalBody"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

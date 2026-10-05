@@ -1,9 +1,9 @@
-# 🤖 SmartHire AI — Resume & Job Matching System
+# 🤖 Hire Match AI — Resume & Job Matching System
 
 > **Hackathon Problem Statement:** ALG-AI-01
 > **Category:** AI / NLP / Recruitment Technology
 
-SmartHire AI is an **AI-powered Resume & Job Matching System** that helps recruiters analyze multiple resumes against a job description, rank candidates based on relevance, and clearly explain why each candidate is a good or weak match.
+Hire Match AI is an **AI-powered Resume & Job Matching System** that helps recruiters analyze multiple resumes against a job description, rank candidates based on relevance, and clearly explain why each candidate is a good or weak match.
 
 Unlike traditional keyword-based screening systems, SmartHire AI focuses on **semantic matching, evidence-based scoring, explainability, and unsupported claim detection**.
 
